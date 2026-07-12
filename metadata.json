@@ -1,0 +1,8 @@
+{
+  "name": "Gastos 30s",
+  "description": "Una aplicación rápida para el registro y seguimiento de gastos mensuales con un diseño premium y transiciones fluidas.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
