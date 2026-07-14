@@ -27,7 +27,7 @@ jobs:
         run: pnpm install
 
       - name: Build Web App
-        run: pnpm run build:mobile
+        run: pnpm run build
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
