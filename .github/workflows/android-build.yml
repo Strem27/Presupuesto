@@ -22,24 +22,9 @@ jobs:
         uses: pnpm/action-setup@v3
         with:
           version: 8
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Web App
         run: pnpm run build
@@ -53,23 +38,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Verify and Sync Android Platform
-        shell: bash
+      - name: Sync Capacitor
         run: |
-          # Ensure node_modules/.bin exists
-          if [ ! -d "node_modules/.bin" ]; then
-            echo "Error: node_modules not properly installed"
-            exit 1
-          fi
-          
-          # Initialize Capacitor if android directory doesn't exist
-          if [ ! -d "android" ]; then
-            pnpm exec cap init "Presupuesto" "com.presupuesto.app" --web-dir="dist"
-            pnpm exec cap add android
-          fi
-          
-          # Sync Capacitor
-          pnpm exec cap sync android
+          node ./node_modules/@capacitor/cli/bin/capacitor sync android
 
       - name: Build APK with Gradle
         run: |
