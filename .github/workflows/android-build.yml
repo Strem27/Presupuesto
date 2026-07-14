@@ -40,7 +40,6 @@ jobs:
 
       - name: Sync Capacitor
         run: |
-          pnpm add -D @capacitor/cli @capacitor/android @capacitor/core
           pnpm exec cap sync android
 
       - name: Build APK with Gradle
