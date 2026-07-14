@@ -26,6 +26,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Install Capacitor CLI & Core
+        run: pnpm add -D @capacitor/cli @capacitor/core @capacitor/android
+
       - name: Build Web App
         run: pnpm run build
 
@@ -37,6 +40,13 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Generate Android Project (if missing)
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap init "Presupuesto" "com.presupuesto.app" --web-dir="dist"
+            npx cap add android
+          fi
 
       - name: Sync Capacitor
         run: |
