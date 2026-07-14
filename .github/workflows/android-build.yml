@@ -19,8 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: |
-          npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Build Web App
         run: npx vite build
