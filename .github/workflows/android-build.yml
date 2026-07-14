@@ -39,12 +39,13 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Verify and Sync Android Platform
+        shell: bash
         run: |
           if [ ! -d "android" ]; then
-            pnpm exec cap init "Presupuesto" "com.presupuesto.app" --web-dir="dist"
-            pnpm exec cap add android
+            ./node_modules/.bin/cap init "Presupuesto" "com.presupuesto.app" --web-dir="dist"
+            ./node_modules/.bin/cap add android
           fi
-          pnpm exec cap sync android
+          ./node_modules/.bin/cap sync android
 
       - name: Build APK with Gradle
         run: |
