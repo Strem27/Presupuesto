@@ -38,8 +38,12 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Sync Capacitor
+      - name: Verify and Sync Android Platform
         run: |
+          if [ ! -d "android" ]; then
+            pnpm exec cap init "Presupuesto" "com.presupuesto.app" --web-dir="dist"
+            pnpm exec cap add android
+          fi
           pnpm exec cap sync android
 
       - name: Build APK with Gradle
